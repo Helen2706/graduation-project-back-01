@@ -1,0 +1,5 @@
+com\luhuiling\graduation\dao\ArticleDao.class
+com\luhuiling\graduation\service\ArticleService.class
+com\luhuiling\graduation\po\Person.class
+com\luhuiling\graduation\po\Article.class
+com\luhuiling\graduation\controller\TestController.class

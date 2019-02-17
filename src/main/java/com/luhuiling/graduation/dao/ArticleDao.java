@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ArticleDao {
     public Article getArticleById(int id);
-    public List<Article> getAllArticles();
+    public List<Article> getAllArticle();
 }

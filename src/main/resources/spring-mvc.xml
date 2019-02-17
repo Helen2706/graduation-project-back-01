@@ -22,5 +22,11 @@
     <!-- 访问静态资源 -->
     <mvc:default-servlet-handler/>
 
+    <!--支持跨域-->
+
+    <mvc:cors>
+        <mvc:mapping path="/**"/>
+    </mvc:cors>
+
 
 </beans>

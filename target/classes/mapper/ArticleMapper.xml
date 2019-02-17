@@ -5,10 +5,13 @@
 <!--命名空间应该是对应接口的包名+接口名 -->
 <mapper namespace="com.luhuiling.graduation.dao.ArticleDao">
     <!--id应该是接口中的方法，结果类型如没有配置别名则应该使用全名称 -->
-    <!--获得所有图书 -->
+    <!--获得所有文章 -->
     <!--<select id="getAllBooks" resultType="Book">
         select id,title,price,publishDate from books
     </select>-->
+    <select id="getAllArticle" resultType="Article">
+        select * from article
+    </select>
     <!--获得图书对象通过编号 -->
     <select id="getArticleById" resultType="Article">
         select * from article where id=#{id}

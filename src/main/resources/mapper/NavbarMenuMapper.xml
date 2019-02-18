@@ -6,15 +6,16 @@
         select `menu_id`,`parent_id`,`name`,`url`, `perms`,`type`,`icon`,`order_num`,`gmt_create`,`gmt_modified` from navbar_menu where menu_id = #{value}
     </select>
     <select id="list" resultType="NavbarMenu">
-        select `menu_id`,`parent_id`,`name`,`url`, `perms`,`type`,`icon`,`order_num`,`gmt_create`,`gmt_modified` from navbar_menu
+        select `menu_id`,`parent_id`,`name`,`url`, `perms`,`type`,`icon`,`order_num`,`gmt_create`,`gmt_modified` from
+        navbar_menu
         <where>
-            <if test="menuId != null and menuId != ''"> and menu_id = #{menuId} </if>
-            <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
-            <if test="name != null and name != ''"> and name = #{name} </if>
-            <if test="url != null and url != ''"> and url = #{url} </if>
-            <if test="perms != null and perms != ''"> and perms = #{perms} </if>
-            <if test="type != null and type != ''"> and type = #{type} </if>
-            <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+            <if test="menuId != null and menuId != ''">and menu_id = #{menuId}</if>
+            <if test="parentId != null and parentId != ''">and parent_id = #{parentId}</if>
+            <if test="name != null and name != ''">and name = #{name}</if>
+            <if test="url != null and url != ''">and url = #{url}</if>
+            <if test="perms != null and perms != ''">and perms = #{perms}</if>
+            <if test="type != null and type != ''">and type = #{type}</if>
+            <if test="orderNum != null and orderNum != ''">and order_num = #{orderNum}</if>
         </where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -29,4 +30,70 @@
         </if>
     </select>
 
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM navbar_menu
+        <where>
+            <if test="menuId != null and menuId != ''">and menu_id = #{menuId}</if>
+            <if test="parentId != null and parentId != ''">and parent_id = #{parentId}</if>
+            <if test="name != null and name != ''">and name = #{name}</if>
+            <if test="url != null and url != ''">and url = #{url}</if>
+            <if test="perms != null and perms != ''">and perms = #{perms}</if>
+            <if test="type != null and type != ''">and type = #{type}</if>
+            <if test="orderNum != null and orderNum != ''">and order_num = #{orderNum}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="NavbarMenu" useGeneratedKeys="true" keyProperty="menuId">
+        INSERT INTO navbar_menu
+        (
+        `menu_id`,
+        `parent_id`,
+        `name`,
+        `url`,
+        `perms`,
+        `type`,
+        `icon`,
+        `order_num`,
+        `gmt_create`,
+        `gmt_modified`
+        )
+        VALUES
+        (
+        #{menuId},
+        #{parentId},
+        #{name},
+        #{url},
+        #{perms},
+        #{type},
+        #{icon},
+        #{orderNum},
+        #{gmtCreate},
+        #{gmtModified},
+        )
+    </insert>
+
+    <update id="update" parameterType="NavbarMenu">
+        UPDATE navbar_menu
+        <set>
+            <if test="menuId != null">`menu_id` = #{menuId}</if>
+            <if test="parentId != null">`parent_id` = #{parentId}</if>
+            <if test="name != null">name = #{name}</if>
+            <if test="url != null">url = #{url}</if>
+            <if test="perms != null">perms = #{perms}</if>
+            <if test="type != null">type = #{type}</if>
+            <if test="orderNum != null">order_num = #{orderNum}</if>
+        </set>
+        WHERE menu_id = #{menuId}
+    </update>
+
+    <delete id="remove">
+        DELETE FROM  navbar_menu WHERE menu_id = #{menuId}
+    </delete>
+
+    <delete id="batchRemove">
+        DELETE FROM  navbar_menu WHERE menu_id IN
+        <foreach item="menuId" collection="array" open="(" separator="," close=")">
+            #{menuId}
+        </foreach>
+    </delete>
 </mapper>

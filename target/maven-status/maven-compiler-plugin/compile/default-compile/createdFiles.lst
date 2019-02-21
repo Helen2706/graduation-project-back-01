@@ -6,6 +6,7 @@ com\luhuiling\graduation\dao\NavbarMenuDao.class
 com\luhuiling\graduation\controller\TestController.class
 com\luhuiling\graduation\service\impl\NavbarMenuServiceImpl.class
 com\luhuiling\graduation\po\utils\Query.class
+com\luhuiling\graduation\po\utils\R.class
 com\luhuiling\graduation\dao\ArticleDao.class
 com\luhuiling\graduation\po\utils\PageUtils.class
 com\luhuiling\graduation\po\Article.class

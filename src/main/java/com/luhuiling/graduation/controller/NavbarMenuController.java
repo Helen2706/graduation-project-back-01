@@ -22,12 +22,12 @@ public class NavbarMenuController {
 
     @ResponseBody
     @RequestMapping("/list")
-    public PageUtils list(@RequestParam Map<String,Object> params){
+    public List<NavbarMenu> list(@RequestParam Map<String,Object> params){
         Query query = new Query(params);
         List<NavbarMenu> navbarMenuList = navbarMenuService.list(query);
         int total = navbarMenuService.count(query);
         PageUtils pageUtils = new PageUtils(total,navbarMenuList);
-        return pageUtils;
+        return navbarMenuList;
     }
 
     /**
@@ -35,7 +35,7 @@ public class NavbarMenuController {
      */
     @ResponseBody
     @RequestMapping("/save")
-    public R save(NavbarMenu navbarMenu) {
+    public R save(@RequestParam("params")NavbarMenu navbarMenu) {
         if(navbarMenuService.save(navbarMenu)>0){
             return R.ok();
         }

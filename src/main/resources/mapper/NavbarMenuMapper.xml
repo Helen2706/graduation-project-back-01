@@ -22,7 +22,7 @@
                 ORDER BY ${sort} ${order}
             </when>
             <otherwise>
-                ORDER BY menu_id DESC
+                ORDER BY menu_id ASC
             </otherwise>
         </choose>
         <if test="offset != null and limit !=null">

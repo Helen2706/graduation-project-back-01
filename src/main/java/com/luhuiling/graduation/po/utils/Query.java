@@ -17,11 +17,18 @@ public class Query extends LinkedHashMap<String,Object> {
     public Query(Map<String,Object> params){
         this.putAll(params);
         //分页参数
-        this.offset = Integer.parseInt(params.get("offset").toString());
-        this.limit = Integer.parseInt(params.get("limit").toString());
-        this.put("offset",offset);
-        this.put("page",offset/limit+1);
-        this.put("limit",limit);
+        if(params.size() != 0){
+            this.offset = Integer.parseInt(params.get("offset").toString());
+            this.limit = Integer.parseInt(params.get("limit").toString());
+            this.put("offset",offset);
+            this.put("page",offset/limit+1);
+            this.put("limit",limit);
+        }else {
+            this.put("offset",0);
+            this.put("page",1);
+            this.put("limit",100);
+        }
+
     }
 
     public int getOffset() {

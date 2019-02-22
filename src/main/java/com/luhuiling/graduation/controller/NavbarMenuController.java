@@ -7,9 +7,7 @@ import com.luhuiling.graduation.po.utils.R;
 import com.luhuiling.graduation.service.NavbarMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -34,8 +32,8 @@ public class NavbarMenuController {
      * 保存
      */
     @ResponseBody
-    @RequestMapping("/save")
-    public R save(@RequestParam("params")NavbarMenu navbarMenu) {
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    public R save(@RequestBody  NavbarMenu navbarMenu) {
         if(navbarMenuService.save(navbarMenu)>0){
             return R.ok();
         }
@@ -47,7 +45,7 @@ public class NavbarMenuController {
      */
     @ResponseBody
     @RequestMapping("/update")
-    public R update(NavbarMenu navbarMenu){
+    public R update(@RequestBody NavbarMenu navbarMenu){
         navbarMenuService.update(navbarMenu);
         return R.ok();
     }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luhuiling.graduation.dao.BasicSettingDao">
+    <!--获取当前项目中唯一基础设置信息-->
+    <select id="getTheOnlyOne" resultType="BasicSetting">
+        select * from basic_setting order by id desc limit 0,1
+    </select>
+
+    <!--插入基础设置-->
+    <insert id="save" parameterType="BasicSetting" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO basic_setting
+        (
+        `name`,
+        `picture_url`,
+        `parent_name`,
+        `english_name`,
+        `copyright`,
+        `contact_info`,
+        `has_parent`,
+        `has_english_name`
+        )
+        VALUES
+        (
+        #{name},
+        #{pictureUrl},
+        #{parentName},
+        #{englishName},
+        #{copyright},
+        #{contactInfo},
+        #{hasParent},
+        #{hasEnglishName}
+        )
+    </insert>
+
+    <update id="update" parameterType="BasicSetting">
+        UPDATE basic_setting
+        <set>
+            <if test="name !=null">`name` = #{name},</if>
+            <if test="pictureUrl !=null">`picture_url` = #{pictureUrl},</if>
+            <if test="parentName !=null">`parent_name` = #{parentName},</if>
+            <if test="englishName !=null">`english_name` = #{englishName},</if>
+            <if test="copyright !=null">`copyright` = #{copyright},</if>
+            <if test="contactInfo !=null">`contact_info` = #{contactInfo},</if>
+            <if test="hasParent !=null">`has_parent` = #{hasParent},</if>
+            <if test="hasEnglishName !=null">`has_english_name` = #{hasEnglishName},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+</mapper>

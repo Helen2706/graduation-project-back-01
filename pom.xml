@@ -48,6 +48,19 @@
             <version>1.8.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <!-- 文件上传与下载 -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.3</version>
+        </dependency>
+
+
         <!-- 数据库 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -177,7 +190,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>7.1.6.v20100715</version>
+                <version>8.1.16.v20140903</version>
                 <configuration>
                     <stopPort>9988</stopPort>
                     <stopKey>foo</stopKey>

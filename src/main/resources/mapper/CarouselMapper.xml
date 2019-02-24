@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luhuiling.graduation.dao.CarouselDao">
+    <select id="get" resultType="Carousel">
+        SELECT * FROM carousel WHERE id = #{id}
+    </select>
+
+    <select id="list" resultType="Carousel">
+        SELECT * FROM carousel ORDER BY id ASC;
+    </select>
+
+    <insert id="save" parameterType="Carousel" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO carousel (
+        `title`,
+        `url`,
+        `image`
+        )
+        VALUES
+        (
+        #{title},
+        #{url},
+        #{image}
+        )
+    </insert>
+
+    <update id="update" parameterType="Carousel">
+        UPDATE carousel
+        <set>
+            <if test="title != null">`title` = #{title},</if>
+            <if test="url != null">`url` = #{url},</if>
+            <if test="image != null">`image` = #{image},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="remove">
+        DELETE FROM carousel where id = #{id};
+    </delete>
+
+    <delete id="batchRemove">
+        DELETE FROM carousel WHERE id IN
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

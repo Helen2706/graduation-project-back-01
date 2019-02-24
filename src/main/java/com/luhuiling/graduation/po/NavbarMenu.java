@@ -2,6 +2,8 @@ package com.luhuiling.graduation.po;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 /*
 * 学院主页菜单导航栏
 * */
@@ -23,6 +25,8 @@ public class NavbarMenu implements Serializable{
     private int type;
     //排序
     private int orderNum;
+    /*子菜单列表*/
+    private List<NavbarMenu> childrens;
     //创建时间
     private Date gmtCreate;
     //修改时间
@@ -106,5 +110,13 @@ public class NavbarMenu implements Serializable{
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public List<NavbarMenu> getChildrens() {
+        return childrens;
+    }
+
+    public void setChildrens(List<NavbarMenu> childrens) {
+        this.childrens = childrens;
     }
 }

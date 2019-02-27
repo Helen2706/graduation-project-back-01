@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luhuiling.graduation.dao.ModuleDao">
+    <!--删除表-->
+    <update id="deleteTable" parameterType="string">
+        DROP TABLE IF EXISTS ${tableName}
+    </update>
+    <!--根据表单创建表-->
+    <update id="createTable" parameterType="Module">
+        CREATE TABLE `${moduleEName}` (
+          <foreach item="item" collection="fields" index="index" open="" separator="," close=",">
+              `${item.name}`
+              <choose>
+                  <when test="item.type==1">
+                      <choose>
+                          <when test="item.length==''||item.length==null"> int</when>
+                          <otherwise> int(${item.length})</otherwise>
+                      </choose>
+                      <choose>
+                          <when test="item.required==true"> NOT NULL</when>
+                          <otherwise> DEFAULT NULL</otherwise>
+                      </choose>
+                      <if test="index==0"> AUTO_INCREMENT</if>
+                      <if test="item.comment!=''"> COMMENT '${item.comment}'</if>
+                  </when>
+                  <when test="item.type==2">
+                      <choose>
+                          <when test="item.length==''||item.length==null"> bigint</when>
+                          <otherwise> bigint(${item.length})</otherwise>
+                      </choose>
+                      <choose>
+                          <when test="item.required==true"> NOT NULL</when>
+                          <otherwise> DEFAULT NULL</otherwise>
+                      </choose>
+                      <if test="index==0"> AUTO_INCREMENT</if>
+                      <if test="item.comment!=''"> COMMENT '${item.comment}'</if>
+                  </when>
+                  <when test="item.type==3">
+                      <choose>
+                          <when test="item.length==''||item.length==null"> DECIMAL</when>
+                          <otherwise> DECIMAL(${item.length})</otherwise>
+                      </choose>
+                      <choose>
+                          <when test="item.required==true"> NOT NULL</when>
+                          <otherwise> DEFAULT NULL</otherwise>
+                      </choose>
+                      <if test="item.comment!=''"> COMMENT '${item.comment}'</if>
+                  </when>
+                  <when test="item.type==4||item.type==7">
+                      <choose>
+                          <when test="item.length==''||item.length==null"> VARCHAR</when>
+                          <otherwise> VARCHAR(${item.length})</otherwise>
+                      </choose>
+                      <choose>
+                          <when test="item.required==true"> NOT NULL</when>
+                          <otherwise> DEFAULT NULL</otherwise>
+                      </choose>
+                      <if test="item.comment!=''"> COMMENT '${item.comment}'</if>
+                  </when>
+                  <when test="item.type==5">
+                      <choose>
+                          <when test="item.length==''||item.length==null"> datetime</when>
+                          <otherwise> datetime</otherwise>
+                      </choose>
+                      <choose>
+                          <when test="item.required==true"> NOT NULL</when>
+                          <otherwise> DEFAULT NULL</otherwise>
+                      </choose>
+                      <if test="item.comment!=''"> COMMENT '${item.comment}'</if>
+                  </when>
+                  <when test="item.type==6">
+                      <choose>
+                          <when test="item.length==''||item.length==null"> longtext</when>
+                          <otherwise> longtext</otherwise>
+                      </choose>
+                      <choose>
+                          <when test="item.required==true"> NOT NULL</when>
+                          <otherwise> DEFAULT NULL</otherwise>
+                      </choose>
+                      <if test="item.comment!=''"> COMMENT '${item.comment}'</if>
+                  </when>
+                  <otherwise>
+                       bigint(20) NOT NULL
+                  </otherwise>
+              </choose>
+          </foreach>
+        PRIMARY KEY (`${fields[0].name}`)
+        )  ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='${moduleName}';
+    </update>
+
+    <!--获取数据库中的所有表-->
+    <select id="listTables" resultType="map">
+        select * from information_schema.TABLES where TABLE_SCHEMA=(select database())
+    </select>
+</mapper>

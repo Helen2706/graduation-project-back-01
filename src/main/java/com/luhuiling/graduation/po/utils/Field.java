@@ -7,7 +7,7 @@ public class Field {
     private String name;            //字段名
     private String comment;         //注释
     private int type;               //类型
-    private int length ;            //长度
+    private String length ;            //长度
     private boolean required;       //是否必填
 
     public String getName() {
@@ -34,11 +34,11 @@ public class Field {
         this.type = type;
     }
 
-    public int getLength() {
+    public String getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(String length) {
         this.length = length;
     }
 

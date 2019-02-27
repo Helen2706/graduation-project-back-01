@@ -1,4 +1,6 @@
-package com.luhuiling.graduation.po.utils;
+package com.luhuiling.graduation.po;
+
+import com.luhuiling.graduation.po.utils.Field;
 
 import java.util.List;
 

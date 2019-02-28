@@ -1,0 +1,61 @@
+package ${package}.controller;
+
+import com.luhuiling.graduation.po.utils.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import ${package}.po.utils.Query;
+import ${package}.po.utils.R;
+import ${package}.po.${className}DO;
+import ${package}.service.${className}Service;
+
+@RestController
+@RequestMapping("/${classname}")
+public class ${className}Controller{
+    @Autowired
+    private ${className}Service ${classname}Service;
+
+    @RequestMapping("/get")
+    public ${className}DO get(${pk.attrType} ${pk.attrname}){
+        return ${classname}Service.get(${pk.attrname});
+    }
+
+    @RequestMapping("/list")
+    public List<${className}DO> list(@RequestParam Map<String,Object> params){
+        Query query = new Query(params);
+        return ${classname}Service.list(query);
+    }
+
+    @RequestMapping("/save")
+    public R save(@RequestBody ${className}DO ${classname}){
+        if(${classname}Service.save(${classname})>0){
+            return R.ok();
+        }
+        return R.error();
+    }
+
+    @RequestMapping("/update")
+    public R update(@RequestBody ${className}DO ${classname}){
+        if(${classname}Service.update(${classname})>0){
+            return R.ok();
+        }
+        return R.error();
+    }
+
+    @RequestMapping("/remove")
+    public R remove(${pk.attrType} ${pk.attrname}){
+        if(${classname}Service.remove(${pk.attrname})>0){
+            return R.ok();
+        }
+        return R.error();
+    }
+
+    @RequestMapping("/batchRemove")
+    public R batchRemove(@RequestParam("ids[]") ${pk.attrType}[] ${pk.attrname}s){           ${classname}Service.batchRemove(${pk.attrname}s);
+        return R.ok();
+    }
+}

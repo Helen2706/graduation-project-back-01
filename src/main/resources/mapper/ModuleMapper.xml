@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.luhuiling.graduation.dao.ModuleDao">
+    <!--根据表名获取数据库中表的信息-->
+    <select id="get"  parameterType="string" resultType="map">
+        select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = (select database()) and table_name = #{tableName}
+    </select>
+
+    <!--根据表名获取数据库中列的信息-->
+    <select id="listColumns"  parameterType="string" resultType="map">
+        select column_name columnName, data_type dataType, column_comment columnComment, column_key columnKey, extra from information_schema.columns where table_name = #{tableName} and table_schema = (select database()) order by ordinal_position
+    </select>
+
     <!--删除表-->
     <update id="deleteTable" parameterType="string">
         DROP TABLE IF EXISTS ${tableName}

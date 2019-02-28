@@ -13,4 +13,8 @@ public interface ModuleDao {
     void createTable(Module module);
 
     List<Map> listTables();
+
+    Map<String, String> get(@Param(value="tableName") String tableName);
+
+    List<Map<String, String>> listColumns(@Param(value="tableName") String tableName);
 }

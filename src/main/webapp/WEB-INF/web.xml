@@ -36,6 +36,16 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>corsFilter</filter-name>
+        <filter-class>com.luhuiling.graduation.system.CorsFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>corsFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
     <!-- spring监听器 -->
     <listener>
         <listener-class>

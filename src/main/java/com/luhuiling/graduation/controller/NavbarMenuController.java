@@ -31,6 +31,24 @@ public class NavbarMenuController {
         PageUtils pageUtils = new PageUtils(total,navbarMenuList);
         return navbarMenuList;
     }
+
+    /**
+     * 返回一级菜单列表及其子菜单
+     */
+    @ResponseBody
+    @RequestMapping("/listByTree")
+    public List<NavbarMenu> listByTree(@RequestParam Map<String,Object> params){
+        params.put("parentId",1);
+        Query query = new Query(params);
+        List<NavbarMenu> navbarMenuList = navbarMenuService.list(query);
+        for(NavbarMenu navbarMenu:navbarMenuList){
+            params.put("parentId",navbarMenu.getMenuId());
+            Query queryChildren = new Query(params);
+            navbarMenu.setChildrens(navbarMenuService.list(queryChildren));
+        }
+        return navbarMenuList;
+    }
+
     /**
      * 分级别展示菜单列表
      */

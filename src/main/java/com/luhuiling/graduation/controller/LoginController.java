@@ -1,8 +1,14 @@
 package com.luhuiling.graduation.controller;
 
 import com.google.code.kaptcha.Producer;
+import com.luhuiling.graduation.po.UserDO;
+import com.luhuiling.graduation.po.utils.BDException;
+import com.luhuiling.graduation.po.utils.R;
 import com.luhuiling.graduation.po.utils.ShiroUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,10 +37,32 @@ public class LoginController {
         //生成图片验证码
         BufferedImage image = producer.createImage(text);
         //保存到shiro session
-//        ShiroUtils.setSessionAttribute("KAPTCHA_SESSION_KEY",text);
-
+        ShiroUtils.setSessionAttribute("KAPTCHA_SESSION_KEY",text);
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image,"jpg",out);
         out.flush();
+    }
+
+    @RequestMapping("/login")
+    public R login(@RequestBody UserDO userDO, String captcha,HttpServletResponse response, HttpServletRequest request){
+//        String kaptcha = ShiroUtils.getKaptcha("KAPTCHA_SESSION_KEY");
+        /*if(!kaptcha.equalsIgnoreCase(captcha)){
+            throw new BDException("验证码错误",107);
+        }*/
+        try{
+            Subject subject = ShiroUtils.getSubject();
+            UsernamePasswordToken token = new UsernamePasswordToken(userDO.getUsername(),userDO.getPassword());
+            token.setRememberMe(false);
+            subject.login(token);
+        }catch (UnknownAccountException e) {
+            return R.error("账户名/密码错误！");
+        } catch (IncorrectCredentialsException e) {
+            return R.error("账户名/密码错误！");
+        } catch (LockedAccountException e) {
+            return R.error("账户名已锁定！");
+        } catch (AuthenticationException e) {
+            return R.error("账户认证失败！");
+        }
+        return R.ok();
     }
 }

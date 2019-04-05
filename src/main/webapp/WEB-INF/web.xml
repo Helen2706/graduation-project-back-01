@@ -10,7 +10,7 @@
     <display-name>graduation-project-back-01</display-name>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring-mybatis.xml</param-value>
+        <param-value>classpath:spring-mybatis.xml,classpath:spring-shiro.xml</param-value>
     </context-param>
     <!-- spring监听器 -->
     <listener>

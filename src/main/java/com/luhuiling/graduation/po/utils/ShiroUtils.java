@@ -19,9 +19,9 @@ public class ShiroUtils {
 
     public static String getKaptcha(String kaptchaSessionKey) throws BDException{
         Object kaptcha = getSession().getAttribute(kaptchaSessionKey);
-        if(kaptcha == null){
+        /*if(kaptcha == null){
             throw new BDException("验证码失效",106);
-        }
+        }*/
         getSession().removeAttribute(kaptchaSessionKey);
         return kaptcha.toString();
     }

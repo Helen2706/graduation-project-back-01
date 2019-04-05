@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luhuiling.graduation.dao.UserDao">
+    <select id="get" resultType="UserDO">
+        SELECT * FROM user WHERE user_id = #{value}
+    </select>
+
+    <select id="getByName" resultType="UserDO">
+        SELECT * FROM user WHERE username = #{value}
+    </select>
+
+    <select id="list" resultType="UserDO">
+        SELECT * FROM user
+        <where>
+                        <if test="userId != null and userId != ''">
+                 and user_id = #{userId}
+            </if>
+                        <if test="username != null and username != ''">
+                 and username = #{username}
+            </if>
+                        <if test="password != null and password != ''">
+                 and password = #{password}
+            </if>
+                        <if test="salt != null and salt != ''">
+                 and salt = #{salt}
+            </if>
+                        <if test="locked != null and locked != ''">
+                 and locked = #{locked}
+            </if>
+                        <if test="gmtCreate != null and gmtCreate != ''">
+                 and gmt_create = #{gmtCreate}
+            </if>
+                        <if test="gmtModified != null and gmtModified != ''">
+                 and gmt_modified = #{gmtModified}
+            </if>
+                    </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by user_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from user
+        <where>
+                            <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+                            <if test="username != null and username != ''"> and username = #{username} </if>
+                            <if test="password != null and password != ''"> and password = #{password} </if>
+                            <if test="salt != null and salt != ''"> and salt = #{salt} </if>
+                            <if test="locked != null and locked != ''"> and locked = #{locked} </if>
+                            <if test="gmtCreate != null and gmtCreate != ''"> and gmt_create = #{gmtCreate} </if>
+                            <if test="gmtModified != null and gmtModified != ''"> and gmt_modified = #{gmtModified} </if>
+                    </where>
+    </select>
+
+    <insert id="save" parameterType="UserDO"  useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO user
+        (
+                                                  `username`,                                           `password`,                                           `salt`,                                           `locked`,                                           `gmt_create`,                                           `gmt_modified`                          )
+        VALUES (
+                                        #{username},                                 #{password},                                 #{salt},                                 #{locked},                                 #{gmt_create},                                 #{gmt_modified}                    )
+    </insert>
+
+    <update id="update" parameterType="UserDO">
+        update user
+        <set>
+                                                                            <if test="username != null">`username` = #{username}, </if>
+                                                                <if test="password != null">`password` = #{password}, </if>
+                                                                <if test="salt != null">`salt` = #{salt}, </if>
+                                                                <if test="locked != null">`locked` = #{locked}, </if>
+                                                                <if test="gmtCreate != null">`gmt_create` = #{gmtCreate}, </if>
+                                                                <if test="gmtModified != null">`gmt_modified` = #{gmtModified}</if>
+                                    </set>
+        where user_id = #{userId}
+    </update>
+
+    <delete id="remove">
+        delete from user where user_id = #{value}
+    </delete>
+
+    <delete id="batchRemove">
+        delete from user where user_id in
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+</mapper>

@@ -49,8 +49,9 @@ public class LoginController {
         /*if(!kaptcha.equalsIgnoreCase(captcha)){
             throw new BDException("验证码错误",107);
         }*/
+        Subject subject;
         try{
-            Subject subject = ShiroUtils.getSubject();
+            subject = ShiroUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(userDO.getUsername(),userDO.getPassword());
             token.setRememberMe(false);
             subject.login(token);

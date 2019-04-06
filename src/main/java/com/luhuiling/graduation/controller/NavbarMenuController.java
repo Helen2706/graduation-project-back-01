@@ -5,6 +5,7 @@ import com.luhuiling.graduation.po.utils.PageUtils;
 import com.luhuiling.graduation.po.utils.Query;
 import com.luhuiling.graduation.po.utils.R;
 import com.luhuiling.graduation.service.NavbarMenuService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
